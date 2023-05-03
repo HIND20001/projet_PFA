@@ -14,15 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include, re_path
-from rest_framework import permissions
-from rest_framework.schemas import openapi, get_schema_view
-
+from django.urls import path, include
 from pfa_api import urls as pfa_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-    path('pfa_api/', include('pfa_api.urls')),
-
+path('api-auth/', include('rest_framework.urls')),
+    path('pfa/', include(pfa_urls)),
 ]
