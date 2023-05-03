@@ -3,8 +3,10 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from pfa_api.serializers import RecruteurSerializer
-from pfa_api.models import Recruteur
+from pfa_api.serializers import RecruteurSerializer, OffreSerializer
+from pfa_api.models import Recruteur, Offre
+
+
 # Create your views here.
 #class RecruteurViewSet(viewsets.ModelViewSet):
 # queryset = Recruteur.objects.all()
@@ -116,3 +118,40 @@ class RecruteurDetailApiView(APIView):
             {"res": "Object deleted!"},
             status=status.HTTP_200_OK
         )
+
+class OffreListApiView(APIView):
+   # add permission to check if user is authenticated
+   #permission_classes = [permissions.IsAuthenticated]
+
+
+   def get(self, request) :
+            offre =Offre.objects.all()
+            serializer =OffreSerializer(offre, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+   # 2. Create
+   def post(self, request, *args, **kwargs):
+
+         data = {
+             'recruteur': request.data.get('recruteur'),
+             'annee_experience': request.data.get('annee_experience'),
+             'connaissance': request.data.get('connaissance'),
+             'contrat': request.data.get('contrat'),
+             'critere': request.data.get('critere'),
+             'formation': request.data.get('formation'),
+             'mission': request.data.get('mission'),
+             'nbr_a_recruter': request.data.get('nbr_a_recruter'),
+             'salaire': request.data.get('salaire'),
+             'tache_principale': request.data.get('tache_principale'),
+             'langue': request.data.get('langue'),
+             'specialite': request.data.get('specialite'),
+             'ville': request.data.get('ville'),
+
+         }
+
+         serializer = OffreSerializer(data=data)
+         if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

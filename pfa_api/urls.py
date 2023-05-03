@@ -6,11 +6,11 @@ from django.urls import include, path
 
 
 from .views import (
-    RecruteurListApiView, RecruteurDetailApiView,
+    RecruteurListApiView, RecruteurDetailApiView, OffreListApiView,
 )
 
 
 urlpatterns = [
-    path('api', RecruteurListApiView.as_view()),
-    path('api/<int:todo_id>/', RecruteurDetailApiView.as_view()),
-]
+    path('apiR', RecruteurListApiView.as_view()),
+    path('apiR/<int:todo_id>/', RecruteurDetailApiView.as_view()),
+    path('apiO', OffreListApiView.as_view()),]
