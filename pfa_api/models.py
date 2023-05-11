@@ -47,6 +47,13 @@ class Offre(models.Model):
         Ville = models.ForeignKey(Ville, on_delete=models.CASCADE)
         Specialite = models.ForeignKey(Specialite, on_delete=models.CASCADE)
 
+class Candidat(Personne):
+    AnneDiplome = models.IntegerField(default='null')
+    DernierPostOccupe = models.CharField(max_length=180,default='null')
+    ecole = models.CharField(max_length=180,default='null')
+    NbrAnnance = models.IntegerField(default='null')
+    NbrAnnanceExp = models.IntegerField(default='null')
+    black_list = models.BooleanField(default='null')
 
 
 
