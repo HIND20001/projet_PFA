@@ -21,18 +21,20 @@ class Personne(models.Model):
 class Recruteur(Personne):
     entreprise= models.CharField(max_length = 180)
 class Ville(models.Model)    :
-    nom_ville = models.CharField(max_length=180,default='null')
+    nom_ville = models.CharField(max_length=180)
 
 class Langue(models.Model)    :
-    nom_langue = models.CharField(max_length=180,default='null')
+    nom_langue = models.CharField(max_length=180)
 
 class Specialite(models.Model)    :
-    nom_specialite = models.CharField(max_length=180,default='null')
-
+    nom_specialite = models.CharField(max_length=180)
+class Diplome(models.Model)    :
+    nom_diplome = models.CharField(max_length=180)
 
 
 class Offre(models.Model):
-        Recruteur = models.ForeignKey(Recruteur, on_delete=models.CASCADE, default='null')
+
+        Recruteur = models.ForeignKey(Recruteur, on_delete=models.CASCADE , default='1')
         annee_experience = models.IntegerField
         connaissance = models.CharField(max_length=180)
         contrat = models.CharField(max_length=180)
@@ -43,11 +45,17 @@ class Offre(models.Model):
         nbr_a_recruter = models.IntegerField
         salaire = models.FloatField
         tache_principale= models.CharField(max_length=180)
-        Langue = models.ForeignKey(Langue, on_delete=models.CASCADE)
-        Ville = models.ForeignKey(Ville, on_delete=models.CASCADE)
-        Specialite = models.ForeignKey(Specialite, on_delete=models.CASCADE)
+        Langue = models.ForeignKey(Langue, on_delete=models.CASCADE, default=None)
+        Ville = models.ForeignKey(Ville, on_delete=models.CASCADE, default=None)
+        Specialite = models.ForeignKey(Specialite, on_delete=models.CASCADE, default=None)
 
 
-
-
+class Candidature(models.Model):
+    Offre_id = models.ForeignKey(Offre, on_delete=models.CASCADE, default='1')
+    annee_diplome = models.IntegerField
+    date_postulation = models.DateTimeField
+    Dernier_post_occupe = models.CharField(max_length=180)
+    NbrAnneeExperience = models.IntegerField
+    Diplome = models.ForeignKey(Diplome, on_delete=models.CASCADE, default=None)
+    Statut_candidature = models.IntegerField
 

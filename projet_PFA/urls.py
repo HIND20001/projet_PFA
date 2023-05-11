@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from pfa_api import urls as pfa_urls
+from pfa_api.views import OffreListApiView, OffreDetailApiView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-path('api-auth/', include('rest_framework.urls')),
+    path('api-auth/', include('rest_framework.urls')),
     path('pfa/', include(pfa_urls)),
+
 ]
